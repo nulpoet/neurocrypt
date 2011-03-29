@@ -33,7 +33,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    A,B:tTPM;
+    A,B,C:tTPM;
     inp:tInputVector;
   end;
 
@@ -72,6 +72,14 @@ begin
       InitAll;
       RandomWeight;
    end;
+   with C do
+   begin
+      K:=spinedit1.Value;
+      N:=spinedit2.Value;
+      L:=spinedit3.Value;
+      InitAll;
+      RandomWeight;
+   end;
    StringGrid1.RowCount:=a.K;
    StringGrid1.ColCount:=a.N;
    stringgrid1.FixedCols:=0;
@@ -83,7 +91,7 @@ begin
    stringgrid2.FixedRows:=0;
    setlength(vec,b.K*b.N);
    k:=0;
-   sum:=GetSum(A,B);
+   sum:=GetSum(A,B,C);
    max:=sqr(a.L*a.l)*a.N*a.K;
    maxSUM:=a.K*a.N*a.L div 4;
    for i:=1 to max do
@@ -91,12 +99,14 @@ begin
       inp.FormRandomVector(b.K,b.N);
       A.CountResult(inp.X);
       b.CountResult(inp.X);
-      if a.TPOutput=b.TPOutput then
+      C.CountResult(inp.X);
+      if (a.TPOutput=b.TPOutput)AND(b.TPOutput=c.TPOutput) then
       begin
          a.UpdateWeight(inp.X);
          b.UpdateWeight(inp.X);
+         c.UpdateWeight(inp.X);
          image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-         sum:=GetSum(A,B);
+         sum:=GetSum(A,B,C);
          image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
          for ii:=0 to a.K-1 do
          for j:=0 to a.N-1 do
@@ -111,7 +121,7 @@ begin
          if sum=0 then break;
       end;
    end;
-   if sum=0 then StatusBar1.SimpleText:='SUCCESS hi' else StatusBar1.SimpleText:='FAILED';
+   if sum=0 then StatusBar1.SimpleText:='SUCCESS' else StatusBar1.SimpleText:='FAILED';
    StatusBar1.SimpleText:=StatusBar1.SimpleText+'. Iterations: '+inttostr(i)+'.';
    StatusBar1.SimpleText:=StatusBar1.SimpleText+' Data exchanged: '+inttostr(i*(a.K*a.N+4) div 1024)+'Kb.';
 

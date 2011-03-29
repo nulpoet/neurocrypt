@@ -52,7 +52,7 @@ TYPE
       Procedure FormRandomVector(k,n:integer);
    end;
 
-   function GetSum(A,B:tTPM):integer;
+   function GetSum(A,B,C:tTPM):integer;
    function KorrFichn(A,B:tVector):real;
 implementation
 
@@ -66,13 +66,13 @@ begin
       if (A[i]*B[i])>=0 then inc(u) else inc(v);
    KorrFichn:=(u-v)/(u+v);
 end;
-function GetSum(A,B:tTPM):integer;
+function GetSum(A,B,C:tTPM):integer;
 Var i,s:integer;
 begin
    s:=0;
    for i:=0 to a.k*a.n-1 do
    begin
-      s:=s+abs(a.w[i]-b.w[i]);
+      s:=s + abs(a.w[i]-b.w[i]) + abs(b.w[i]-c.w[i]);
    end;
    GetSum:=s;
 end;
