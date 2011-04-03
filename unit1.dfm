@@ -5,7 +5,7 @@ object Form1: TForm1
   Caption = 
     'Neural Cryptography Machine (NCM) by Alexander Popovsky aka Cybe' +
     'rTrone 2009 (c)'
-  ClientHeight = 572
+  ClientHeight = 557
   ClientWidth = 709
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,21 +19,21 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 16
-    Top = 104
+    Left = 17
+    Top = 175
     Width = 345
-    Height = 377
+    Height = 306
   end
   object Label4: TLabel
-    Left = 17
-    Top = 529
+    Left = 23
+    Top = 505
     Width = 57
     Height = 13
     Caption = 'Shared key:'
   end
   object Label5: TLabel
-    Left = 24
-    Top = 104
+    Left = 32
+    Top = 156
     Width = 196
     Height = 13
     Caption = 'Neural machine'#39's difference chart:'
@@ -47,7 +47,7 @@ object Form1: TForm1
   end
   object Label6: TLabel
     Left = 296
-    Top = 294
+    Top = 466
     Width = 33
     Height = 13
     Caption = 'Equal'
@@ -61,7 +61,7 @@ object Form1: TForm1
   end
   object Label7: TLabel
     Left = 296
-    Top = 118
+    Top = 175
     Width = 56
     Height = 13
     Caption = 'Not equal'
@@ -75,10 +75,10 @@ object Form1: TForm1
   end
   object GroupBox2: TGroupBox
     Left = 16
-    Top = 0
-    Width = 249
-    Height = 97
-    Caption = 'Neural Machine Parameters'
+    Top = 8
+    Width = 232
+    Height = 142
+    Caption = 'Neural Machine'#39's Parameters'
     TabOrder = 0
     object Label1: TLabel
       Left = 16
@@ -101,42 +101,59 @@ object Form1: TForm1
       Height = 13
       Caption = 'Weight'#39's range (L)'
     end
+    object Label8: TLabel
+      Left = 21
+      Top = 102
+      Width = 47
+      Height = 13
+      Caption = 'Run times'
+    end
     object SpinEdit1: TSpinEdit
-      Left = 112
-      Top = 20
+      Left = 113
+      Top = 21
       Width = 121
       Height = 22
-      MaxValue = 30
-      MinValue = 4
+      MaxValue = 100
+      MinValue = 1
       TabOrder = 0
       Value = 8
     end
     object SpinEdit2: TSpinEdit
-      Left = 112
-      Top = 44
+      Left = 113
+      Top = 43
       Width = 121
       Height = 22
-      MaxValue = 30
-      MinValue = 4
+      MaxValue = 100
+      MinValue = 1
       TabOrder = 1
       Value = 12
     end
     object SpinEdit3: TSpinEdit
-      Left = 112
-      Top = 68
-      Width = 121
+      Left = 113
+      Top = 71
+      Width = 120
       Height = 22
-      MaxValue = 6
-      MinValue = 3
+      MaxValue = 100
+      MinValue = 1
       TabOrder = 2
       Value = 4
     end
+    object SpinEdit4: TSpinEdit
+      Left = 113
+      Top = 99
+      Width = 121
+      Height = 22
+      MaxValue = 100000
+      MinValue = 1
+      TabOrder = 3
+      Value = 1
+    end
   end
   object Button3: TButton
-    Left = 272
-    Top = 0
-    Width = 89
-    Height = 97
+    Left = 256
+    Top = 11
+    Width = 96
+    Height = 118
     Caption = 'SYNC'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -149,7 +166,7 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 553
+    Top = 538
     Width = 709
     Height = 19
     Panels = <>
@@ -205,8 +222,8 @@ object Form1: TForm1
     end
   end
   object Edit1: TEdit
-    Left = 80
-    Top = 526
+    Left = 86
+    Top = 502
     Width = 593
     Height = 21
     ReadOnly = True
