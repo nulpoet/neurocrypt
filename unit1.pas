@@ -27,6 +27,8 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    GroupBox4: TGroupBox;
+    StringGrid3: TStringGrid;
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -89,6 +91,12 @@ begin
    StringGrid2.ColCount:=a.N;
    stringgrid2.FixedCols:=0;
    stringgrid2.FixedRows:=0;
+
+   StringGrid3.RowCount:=a.K;
+   StringGrid3.ColCount:=a.N;
+   stringgrid3.FixedCols:=0;
+   stringgrid3.FixedRows:=0;
+
    setlength(vec,b.K*b.N);
    k:=0;
    sum:=GetSum(A,B,C);
@@ -113,9 +121,11 @@ begin
          begin
             stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
             stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+            stringgrid3.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
          end;
          stringgrid1.Repaint;
          stringgrid2.Repaint;
+         stringgrid3.Repaint;
          image1.Repaint;
          inc(k);
          if sum=0 then break;

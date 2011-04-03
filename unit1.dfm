@@ -5,8 +5,8 @@ object Form1: TForm1
   Caption = 
     'Neural Cryptography Machine (NCM) by Alexander Popovsky aka Cybe' +
     'rTrone 2009 (c)'
-  ClientHeight = 378
-  ClientWidth = 677
+  ClientHeight = 572
+  ClientWidth = 709
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,11 +22,11 @@ object Form1: TForm1
     Left = 16
     Top = 104
     Width = 345
-    Height = 217
+    Height = 377
   end
   object Label4: TLabel
-    Left = 16
-    Top = 328
+    Left = 17
+    Top = 529
     Width = 57
     Height = 13
     Caption = 'Shared key:'
@@ -149,8 +149,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 359
-    Width = 677
+    Top = 553
+    Width = 709
     Height = 19
     Panels = <>
     SimplePanel = True
@@ -206,10 +206,34 @@ object Form1: TForm1
   end
   object Edit1: TEdit
     Left = 80
-    Top = 328
+    Top = 526
     Width = 593
     Height = 21
     ReadOnly = True
     TabOrder = 5
+  end
+  object GroupBox4: TGroupBox
+    Left = 376
+    Top = 320
+    Width = 305
+    Height = 161
+    Caption = 'Neural Machine C'
+    TabOrder = 6
+    object StringGrid3: TStringGrid
+      Left = 2
+      Top = 15
+      Width = 301
+      Height = 144
+      Align = alClient
+      DefaultColWidth = 15
+      DefaultRowHeight = 10
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -8
+      Font.Name = 'MS Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+    end
   end
 end
