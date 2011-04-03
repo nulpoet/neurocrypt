@@ -19,10 +19,10 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 16
-    Top = 104
+    Left = 17
+    Top = 240
     Width = 345
-    Height = 377
+    Height = 240
   end
   object Label4: TLabel
     Left = 17
@@ -32,8 +32,8 @@ object Form1: TForm1
     Caption = 'Shared key:'
   end
   object Label5: TLabel
-    Left = 24
-    Top = 104
+    Left = 17
+    Top = 240
     Width = 196
     Height = 13
     Caption = 'Neural machine'#39's difference chart:'
@@ -47,7 +47,7 @@ object Form1: TForm1
   end
   object Label6: TLabel
     Left = 296
-    Top = 294
+    Top = 466
     Width = 33
     Height = 13
     Caption = 'Equal'
@@ -60,8 +60,8 @@ object Form1: TForm1
     Transparent = True
   end
   object Label7: TLabel
-    Left = 296
-    Top = 118
+    Left = 288
+    Top = 240
     Width = 56
     Height = 13
     Caption = 'Not equal'
@@ -74,10 +74,10 @@ object Form1: TForm1
     Transparent = True
   end
   object GroupBox2: TGroupBox
-    Left = 16
-    Top = 0
+    Left = 17
+    Top = 10
     Width = 249
-    Height = 97
+    Height = 145
     Caption = 'Neural Machine Parameters'
     TabOrder = 0
     object Label1: TLabel
@@ -100,6 +100,13 @@ object Form1: TForm1
       Width = 86
       Height = 13
       Caption = 'Weight'#39's range (L)'
+    end
+    object Label8: TLabel
+      Left = 19
+      Top = 99
+      Width = 75
+      Height = 13
+      Caption = 'Run Round limit'
     end
     object SpinEdit1: TSpinEdit
       Left = 112
@@ -134,9 +141,9 @@ object Form1: TForm1
   end
   object Button3: TButton
     Left = 272
-    Top = 0
+    Top = 8
     Width = 89
-    Height = 97
+    Height = 118
     Caption = 'SYNC'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -235,5 +242,17 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 0
     end
+  end
+  object SpinEdit4: TSpinEdit
+    Left = 129
+    Top = 106
+    Width = 121
+    Height = 22
+    Ctl3D = True
+    MaxValue = 1000000
+    MinValue = 1
+    ParentCtl3D = False
+    TabOrder = 7
+    Value = 1
   end
 end

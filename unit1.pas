@@ -29,6 +29,8 @@ type
     Label7: TLabel;
     GroupBox4: TGroupBox;
     StringGrid3: TStringGrid;
+    SpinEdit4: TSpinEdit;
+    Label8: TLabel;
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -42,6 +44,7 @@ type
 var
   Form1: TForm1;
   vec:tVector;
+  myFile : TextFile;
 
 implementation
 
@@ -49,8 +52,15 @@ implementation
 const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789';
 
 procedure TForm1.Button3Click(Sender: TObject);
-Var i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
+Var r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
 begin
+
+  for r:=1 to spinedit4.Value do
+  begin
+
+  AssignFile(myFile, 'log.txt');
+  Append(myFile);
+
   image1.Canvas.Brush.Color:=clInfoBK;
   image1.Canvas.Pen.Color:=clBlue;
   image1.Canvas.FillRect(image1.ClientRect);
@@ -131,7 +141,15 @@ begin
          if sum=0 then break;
       end;
    end;
-   if sum=0 then StatusBar1.SimpleText:='SUCCESS' else StatusBar1.SimpleText:='FAILED';
+   if sum=0 then begin
+      StatusBar1.SimpleText:='SUCCESS. '+'round:'+inttostr(r);
+      WriteLn (myFile, 'SUCCESS'+' Iterations: '+inttostr(i));
+   end
+   else
+   begin
+      StatusBar1.SimpleText:='FAILED. '+'round:'+inttostr(r);
+      WriteLn (myFile, 'FAILED'+' Iterations: '+inttostr(i));
+   end;
    StatusBar1.SimpleText:=StatusBar1.SimpleText+'. Iterations: '+inttostr(i)+'.';
    StatusBar1.SimpleText:=StatusBar1.SimpleText+' Data exchanged: '+inttostr(i*(a.K*a.N+4) div 1024)+'Kb.';
 
@@ -146,6 +164,9 @@ begin
          k:=k+a.w[j]+a.l;
       edit1.Text:=edit1.Text+ABC[k];
    end;
+
+   CloseFile(myFile);
+  end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
