@@ -108,13 +108,20 @@ object Form1: TForm1
       Height = 13
       Caption = 'Run Round limit'
     end
+    object Label9: TLabel
+      Left = 19
+      Top = 129
+      Width = 78
+      Height = 13
+      Caption = 'No. of Machines'
+    end
     object SpinEdit1: TSpinEdit
       Left = 112
       Top = 20
       Width = 121
       Height = 22
-      MaxValue = 30
-      MinValue = 4
+      MaxValue = 100
+      MinValue = 1
       TabOrder = 0
       Value = 8
     end
@@ -123,8 +130,8 @@ object Form1: TForm1
       Top = 44
       Width = 121
       Height = 22
-      MaxValue = 30
-      MinValue = 4
+      MaxValue = 10000
+      MinValue = 1
       TabOrder = 1
       Value = 12
     end
@@ -133,8 +140,8 @@ object Form1: TForm1
       Top = 68
       Width = 121
       Height = 22
-      MaxValue = 6
-      MinValue = 3
+      MaxValue = 100
+      MinValue = 1
       TabOrder = 2
       Value = 4
     end
@@ -254,5 +261,18 @@ object Form1: TForm1
     ParentCtl3D = False
     TabOrder = 7
     Value = 1
+  end
+  object SpinEdit5: TSpinEdit
+    Left = 129
+    Top = 134
+    Width = 121
+    Height = 22
+    TabStop = False
+    Ctl3D = True
+    MaxValue = 3
+    MinValue = 2
+    ParentCtl3D = False
+    TabOrder = 8
+    Value = 3
   end
 end

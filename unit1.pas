@@ -31,6 +31,8 @@ type
     StringGrid3: TStringGrid;
     SpinEdit4: TSpinEdit;
     Label8: TLabel;
+    SpinEdit5: TSpinEdit;
+    Label9: TLabel;
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -52,8 +54,10 @@ implementation
 const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789';
 
 procedure TForm1.Button3Click(Sender: TObject);
-Var r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
+Var nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
 begin
+
+  nM := spinedit5.Value;
 
   for r:=1 to spinedit4.Value do
   begin
@@ -84,14 +88,15 @@ begin
       InitAll;
       RandomWeight;
    end;
-   with C do
-   begin
-      K:=spinedit1.Value;
-      N:=spinedit2.Value;
-      L:=spinedit3.Value;
-      InitAll;
-      RandomWeight;
-   end;
+   if nM = 3 then
+       with C do
+       begin
+          K:=spinedit1.Value;
+          N:=spinedit2.Value;
+          L:=spinedit3.Value;
+          InitAll;
+          RandomWeight;
+       end;
    StringGrid1.RowCount:=a.K;
    StringGrid1.ColCount:=a.N;
    stringgrid1.FixedCols:=0;
@@ -109,37 +114,69 @@ begin
 
    setlength(vec,b.K*b.N);
    k:=0;
-   sum:=GetSum(A,B,C);
+   if nM = 3 then
+      sum:=GetSum3(A,B,C)
+   else
+      sum:=GetSum2(A,B);
+
    max:=sqr(a.L*a.l)*a.N*a.K;
    maxSUM:=a.K*a.N*a.L div 4;
    for i:=1 to max do
    begin
-      inp.FormRandomVector(b.K,b.N);
-      A.CountResult(inp.X);
-      b.CountResult(inp.X);
-      C.CountResult(inp.X);
-      if (a.TPOutput=b.TPOutput)AND(b.TPOutput=c.TPOutput) then
-      begin
-         a.UpdateWeight(inp.X);
-         b.UpdateWeight(inp.X);
-         c.UpdateWeight(inp.X);
-         image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-         sum:=GetSum(A,B,C);
-         image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-         for ii:=0 to a.K-1 do
-         for j:=0 to a.N-1 do
-         begin
-            stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
-            stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
-            stringgrid3.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
-         end;
-         stringgrid1.Repaint;
-         stringgrid2.Repaint;
-         stringgrid3.Repaint;
-         image1.Repaint;
-         inc(k);
-         if sum=0 then break;
-      end;
+      if nM = 3 then
+        begin
+          inp.FormRandomVector(b.K,b.N);
+          A.CountResult(inp.X);
+          b.CountResult(inp.X);
+          C.CountResult(inp.X);
+          if (a.TPOutput=b.TPOutput)AND(b.TPOutput=c.TPOutput) then
+          begin
+             a.UpdateWeight(inp.X);
+             b.UpdateWeight(inp.X);
+             c.UpdateWeight(inp.X);
+             image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+             sum:=GetSum3(A,B,C);
+             image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+             for ii:=0 to a.K-1 do
+             for j:=0 to a.N-1 do
+             begin
+                stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
+                stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+                stringgrid3.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+             end;
+             stringgrid1.Repaint;
+             stringgrid2.Repaint;
+             stringgrid3.Repaint;
+             image1.Repaint;
+             inc(k);
+             if sum=0 then break;
+          end;
+        end
+      else
+        begin
+          inp.FormRandomVector(b.K,b.N);
+          A.CountResult(inp.X);
+          b.CountResult(inp.X);
+          if (a.TPOutput=b.TPOutput) then
+          begin
+             a.UpdateWeight(inp.X);
+             b.UpdateWeight(inp.X);
+             image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+             sum:=GetSum2(A,B);
+             image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+             for ii:=0 to a.K-1 do
+             for j:=0 to a.N-1 do
+             begin
+                stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
+                stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+             end;
+             stringgrid1.Repaint;
+             stringgrid2.Repaint;
+             image1.Repaint;
+             inc(k);
+             if sum=0 then break;
+          end;
+        end;
    end;
    if sum=0 then begin
       StatusBar1.SimpleText:='SUCCESS. '+'round:'+inttostr(r);

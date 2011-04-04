@@ -75,7 +75,7 @@
 						<Source Name="MainSource">Project1.dpr</Source>
 					</Source>
 					<Language>
-						<Language Name="RootDir">X:\Desktop\Sources\</Language>
+						<Language Name="RootDir">..\neurocrypt\</Language>
 					</Language>
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
