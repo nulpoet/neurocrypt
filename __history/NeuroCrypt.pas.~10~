@@ -38,7 +38,7 @@ TYPE
 
    tVector = array of integer;
    tTPM = object
-      w,wold,h:tVector;
+      w,w_old,h,Wchange:tVector;
       K,N,L:integer;
       TPOutput:integer;
       Procedure InitAll;
@@ -143,8 +143,8 @@ end;
 procedure tTPM.InitAll;
 begin
    SetLength(w,K*N);
-   SetLength(wold,K*N);
    SetLength(h,K);
+   SetLength(w_all,K*N);
 end;
 
 procedure tTPM.RandomWeight;

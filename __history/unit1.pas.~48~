@@ -53,16 +53,23 @@ implementation
 {$R *.dfm}
 const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789';
 
+function Equ(a,b:integer):integer;
+begin
+   if a=b then equ:=1
+   else equ:=0;
+end;
+
 procedure TForm1.Button3Click(Sender: TObject);
-Var nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
+Var cnt,nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
 begin
 
   nM := spinedit5.Value;
 
   for r:=1 to spinedit4.Value do
   begin
-
-  AssignFile(myFile, 'log.txt');
+  If NOT FileExists('log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit4.Value)+'_r='+inttostr(spinedit5.Value)+'.txt') then
+  FileCreate('log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit4.Value)+'_r='+inttostr(spinedit5.Value)+'.txt');
+  AssignFile(myFile, 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit4.Value)+'_r='+inttostr(spinedit5.Value)+'.txt');
   Append(myFile);
 
   image1.Canvas.Brush.Color:=clInfoBK;
@@ -117,7 +124,7 @@ begin
    if nM = 3 then
       sum:=GetSum3(A,B,C)
    else
-      sum:=GetSum2(A,B,C);
+      sum:=GetSum2(A,B);
 
    max:=sqr(a.L*a.l)*a.N*a.K;
    maxSUM:=a.K*a.N*a.L div 4;
@@ -134,8 +141,22 @@ begin
              a.UpdateWeight(inp.X);
              b.UpdateWeight(inp.X);
              c.UpdateWeight(inp.X);
+
+             a.wold := a.w;
+             b.wold := b.w;
+             c.wold := c.w;
+             for cnt:=0 to K-1 do
+             begin
+              if equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt]) = 1 then begin
+                {attractive step}
+              end
+              else begin
+                 {repulsive step}
+              end;
+             end;
+
              image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-             sum:=GetSum(A,B,C);
+             sum:=GetSum3(A,B,C);
              image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
              for ii:=0 to a.K-1 do
              for j:=0 to a.N-1 do
@@ -162,7 +183,7 @@ begin
              a.UpdateWeight(inp.X);
              b.UpdateWeight(inp.X);
              image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-             sum:=GetSum(A,B);
+             sum:=GetSum2(A,B);
              image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
              for ii:=0 to a.K-1 do
              for j:=0 to a.N-1 do

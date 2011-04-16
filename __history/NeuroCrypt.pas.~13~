@@ -38,7 +38,7 @@ TYPE
 
    tVector = array of integer;
    tTPM = object
-      w,h:tVector;
+      w,w_old,h:tVector;
       K,N,L:integer;
       TPOutput:integer;
       Procedure InitAll;
@@ -76,7 +76,7 @@ begin
    begin
       s:=s + abs(a.w[i]-b.w[i]) + abs(b.w[i]-c.w[i]);
    end;
-   GetSum:=s;
+   GetSum3:=s;
 end;
 
 function GetSum2(A,B:tTPM):integer;
@@ -87,7 +87,7 @@ begin
    begin
       s:=s + abs(a.w[i]-b.w[i]);
    end;
-   GetSum:=s;
+   GetSum2:=s;
 end;
 
 function power(t,k:int64):int64;
@@ -143,6 +143,7 @@ end;
 procedure tTPM.InitAll;
 begin
    SetLength(w,K*N);
+   SetLength(w_old,K*N);
    SetLength(h,K);
 end;
 

@@ -61,23 +61,15 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 Var cnt,nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
-Var fname:String;
 begin
+
   nM := spinedit5.Value;
-  fname := 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
-
-  AssignFile(myFile, fname);
-  Rewrite(myFile);
-  CloseFile(myFile);
-
-  {If NOT FileExists(fname) then begin
-    FileCreate(fname);
-  end;}
-
 
   for r:=1 to spinedit4.Value do
   begin
-  AssignFile(myFile, fname);
+
+  AssignFile(myFile, 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit4.Value)+'_r='+inttostr(spinedit5.Value)+'.txt');
+  Reset(myFile);
   Append(myFile);
 
   image1.Canvas.Brush.Color:=clInfoBK;

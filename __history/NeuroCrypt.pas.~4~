@@ -38,7 +38,7 @@ TYPE
 
    tVector = array of integer;
    tTPM = object
-      w,wold,h:tVector;
+      w,h:tVector;
       K,N,L:integer;
       TPOutput:integer;
       Procedure InitAll;
@@ -143,7 +143,6 @@ end;
 procedure tTPM.InitAll;
 begin
    SetLength(w,K*N);
-   SetLength(wold,K*N);
    SetLength(h,K);
 end;
 
@@ -154,8 +153,9 @@ begin
       w[i]:=L-Random(2*L+1);
 end;
 
-procedure tTPM.UpdateWeight(X:tVector);
+procedure tTPM.UpdateWeight(X:tVector):tVector;
 Var i,j,newW:integer;
+Var Wchange:tVector;
 begin
    for i:=0 to K-1 do
    for j:=0 to N-1 do
@@ -167,6 +167,8 @@ begin
       if newW>L then newW:=L;
       if newW<-L then newW:=-L;
       W[i*n+j]:=newW;
+
+      UpdateWeight:=Wchange;
    end;
 end;
 
