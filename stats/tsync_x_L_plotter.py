@@ -17,9 +17,26 @@ L = numpy.arange(0.0, 10.0+1.0, 1.0)
 
 
 if __name__ == '__main__':
-	
-	print get_avg('logs/m3/log_k3_l4_n11_m3_1000.txt');
-	print get_avg('logs/m3/log_k3_l5_n11_m3_100.txt');
-	print get_avg('logs/m3/log_k3_l6_n11_m3_100.txt');
+
+	print "m3 k3"	
+	print get_avg('logs/n1000/log_K=3_L=1_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=2_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=3_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=4_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=5_N=1000_m=3_r=100.txt');
+
+
+	print "m2 k3"	
+	print get_avg('logs/n1000/log_K=3_L=1_N=1000_m=2_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=2_N=1000_m=2_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=3_N=1000_m=2_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=4_N=1000_m=2_r=100.txt');
+	print get_avg('logs/n1000/log_K=3_L=5_N=1000_m=2_r=100.txt');
+
+	print "m3 k4"	
+	print get_avg('logs/n1000/log_K=4_L=2_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=4_L=3_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=4_L=4_N=1000_m=3_r=100.txt');
+	print get_avg('logs/n1000/log_K=4_L=5_N=1000_m=3_r=100.txt');
 	
 	print "main"

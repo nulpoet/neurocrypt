@@ -70,11 +70,6 @@ begin
   Rewrite(myFile);
   CloseFile(myFile);
 
-  {If NOT FileExists(fname) then begin
-    FileCreate(fname);
-  end;}
-
-
   for r:=1 to spinedit4.Value do
   begin
   AssignFile(myFile, fname);

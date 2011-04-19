@@ -60,16 +60,24 @@ begin
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
-Var nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
+Var cnt,nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
+Var fname:String;
 begin
-
   nM := spinedit5.Value;
+  fname := 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+
+  AssignFile(myFile, fname);
+  Rewrite(myFile);
+  CloseFile(myFile);
+
+  {If NOT FileExists(fname) then begin
+    FileCreate(fname);
+  end;}
+
 
   for r:=1 to spinedit4.Value do
   begin
-
-  AssignFile(myFile, 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit4.Value)+'_r='+inttostr(spinedit5.Value)+'.txt');
-  Reset(myFile);
+  AssignFile(myFile, fname);
   Append(myFile);
 
   image1.Canvas.Brush.Color:=clInfoBK;
@@ -145,9 +153,9 @@ begin
              a.wold := a.w;
              b.wold := b.w;
              c.wold := c.w;
-             for k:=0 to K-1 do
+             for cnt:=0 to K-1 do
              begin
-              if equ(a.TPOutput,a.h[k])*equ(a.TPOutput,a.h[k])*equ(a.TPOutput,a.h[k]) = 1 then begin
+              if equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt]) = 1 then begin
                 {attractive step}
               end
               else begin
