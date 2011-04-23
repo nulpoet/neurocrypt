@@ -93,10 +93,12 @@ begin
   granularity := 10;
   nM := spinedit5.Value;
 
-  fname := 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+{  fname := 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
   AssignFile(myFile, fname);
   Rewrite(myFile);
-  CloseFile(myFile);
+  CloseFile(myFile);}
+
+//  WriteLn(Output, 'Please enter your name');
 
   for r:=1 to spinedit4.Value do
   begin
@@ -176,8 +178,7 @@ begin
        repulsion_log_count[cnt] := 0;
      end;
 
-//     max:=sqr(a.L*a.l)*a.N*a.K;
-     max:=4*sqr(a.L*a.l)*a.N*a.K;
+     max:=sqr(a.L*a.l)*a.N*a.K;
      maxSUM:=a.K*a.N*a.L div 4;
      for i:=1 to max do
      begin
@@ -220,8 +221,8 @@ begin
                image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
   }
 
-               image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((prev_overlap/1.1)*(image1.Height-20)/1.1));
-               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((overlap/1.1)*(image1.Height-20)/1.1));
+//               image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((prev_overlap/1.1)*(image1.Height-20)/1.0));
+//               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((overlap/1.1)*(image1.Height-20)/1.0));
 
 
                for ii:=0 to a.K-1 do
@@ -235,9 +236,9 @@ begin
                stringgrid1.Repaint;
                stringgrid2.Repaint;
                stringgrid3.Repaint;
-               image1.Repaint;
+//               image1.Repaint;
 
-               StatusBar2.SimpleText:='Current round stats >  Iterations: '+inttostr(i)+'  |  overlap : ' + FormatFloat('0.0000', overlap);
+               StatusBar2.SimpleText:='Current round stats >>  Iterations: '+inttostr(i)+'  |  overlap : ' + FormatFloat('0.0000', overlap);
 
                inc(k);
                {if sum=0 then break;}
@@ -272,19 +273,30 @@ begin
      end;
 
 
-     AssignFile(myFile, fname);
-     Append(myFile);
+//     AssignFile(myFile, fname);
+//     Append(myFile);
      {   if sum=0 then begin}
      if overlap>0.999999 then begin
         StatusBar1.SimpleText:='SUCCESS. '+'round:'+inttostr(r);
-        WriteLn (myFile, 'SUCCESS'+' Iterations: '+inttostr(i));
+//        WriteLn (myFile, 'SUCCESS'+' Iterations: '+inttostr(i));
+
+{        if r=0 then
+        else if r=1 then
+        else if r=2 then
+        else if r=3 then
+        else if r=4 then
+        else if r=5 then
+        else if r=6 then
+        else begin
+        end;
+}
      end
      else
      begin
         StatusBar1.SimpleText:='FAILED. '+'round:'+inttostr(r);
-        WriteLn (myFile, 'FAILED'+' Iterations: '+inttostr(i));
+//        WriteLn (myFile, 'FAILED'+' Iterations: '+inttostr(i));
      end;
-     CloseFile(myFile);
+//     CloseFile(myFile);
 
 
      StatusBar1.SimpleText:=StatusBar1.SimpleText+'. Iterations: '+inttostr(i)+'.';

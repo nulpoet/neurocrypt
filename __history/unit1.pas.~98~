@@ -176,7 +176,6 @@ begin
        repulsion_log_count[cnt] := 0;
      end;
 
-//     max:=sqr(a.L*a.l)*a.N*a.K;
      max:=4*sqr(a.L*a.l)*a.N*a.K;
      maxSUM:=a.K*a.N*a.L div 4;
      for i:=1 to max do

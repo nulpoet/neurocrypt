@@ -176,8 +176,7 @@ begin
        repulsion_log_count[cnt] := 0;
      end;
 
-//     max:=sqr(a.L*a.l)*a.N*a.K;
-     max:=4*sqr(a.L*a.l)*a.N*a.K;
+     max:=sqr(a.L*a.l)*a.N*a.K;
      maxSUM:=a.K*a.N*a.L div 4;
      for i:=1 to max do
      begin
@@ -220,8 +219,8 @@ begin
                image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
   }
 
-               image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((prev_overlap/1.1)*(image1.Height-20)/1.1));
-               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((overlap/1.1)*(image1.Height-20)/1.1));
+//               image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((prev_overlap/1.1)*(image1.Height-20)/1.0));
+//               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((overlap/1.1)*(image1.Height-20)/1.0));
 
 
                for ii:=0 to a.K-1 do
@@ -235,9 +234,9 @@ begin
                stringgrid1.Repaint;
                stringgrid2.Repaint;
                stringgrid3.Repaint;
-               image1.Repaint;
+//               image1.Repaint;
 
-               StatusBar2.SimpleText:='Current round stats >  Iterations: '+inttostr(i)+'  |  overlap : ' + FormatFloat('0.0000', overlap);
+               StatusBar2.SimpleText:='Current round stats >>  Iterations: '+inttostr(i)+'  |  overlap : ' + FormatFloat('0.0000', overlap);
 
                inc(k);
                {if sum=0 then break;}
