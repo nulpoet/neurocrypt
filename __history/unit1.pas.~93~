@@ -335,24 +335,24 @@ begin
 
   for i3 := 0 to granularity do begin
     if (attraction_log_count[i3]+repulsion_log_count[i3]) = 0 then
-      WriteLn (myFile_delta_overlap_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', -1.0 ) )
+      WriteLn (myFile_delta_overlap_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0 ) )
     else
-      WriteLn (myFile_delta_overlap_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', (attraction_log[i3]+repulsion_log[i3]) / (attraction_log_count[i3]+repulsion_log_count[i3]) ) );
+      WriteLn (myFile_delta_overlap_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', (attraction_log[i3]+repulsion_log[i3]) / (attraction_log_count[i3]+repulsion_log_count[i3]) ) );
 
     if attraction_log_count[i3] = 0 then
-      WriteLn (myFile_delta_overlap_attraction_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', -1.0) )
+      WriteLn (myFile_delta_overlap_attraction_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0) )
     else
-      WriteLn (myFile_delta_overlap_attraction_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', attraction_log[i3] / attraction_log_count[i3]  ) );
+      WriteLn (myFile_delta_overlap_attraction_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', attraction_log[i3] / attraction_log_count[i3]  ) );
 
     if repulsion_log_count[i3] = 0 then
-      WriteLn (myFile_delta_overlap_repulsion_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', -1.0) )
+      WriteLn (myFile_delta_overlap_repulsion_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0) )
     else
-      WriteLn (myFile_delta_overlap_repulsion_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', repulsion_log[i3] / repulsion_log_count[i3]) );
+      WriteLn (myFile_delta_overlap_repulsion_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', repulsion_log[i3] / repulsion_log_count[i3]) );
 
     if (attraction_log_count[i3]+repulsion_log_count[i3]) = 0 then
-      WriteLn (myFile_pa_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', -1.0  ) )
+      WriteLn (myFile_pa_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0  ) )
     else
-      WriteLn (myFile_pa_vs_overlap, FormatFloat('0.0000', i3/granularity) +'  '+ FormatFloat('0.0000', attraction_log_count[i3] / (attraction_log_count[i3]+repulsion_log_count[i3])  ) );
+      WriteLn (myFile_pa_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', attraction_log_count[i3] / (attraction_log_count[i3]+repulsion_log_count[i3])  ) );
   end;
   CloseFile(myFile_delta_overlap_vs_overlap);
   CloseFile(myFile_delta_overlap_attraction_vs_overlap);
