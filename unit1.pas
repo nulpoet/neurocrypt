@@ -7,6 +7,9 @@ uses
   Dialogs, NeuroCrypt, StdCtrls, ExtCtrls, Spin, ComCtrls, Grids;
 
 type
+
+  tDoubleVector = array of Double;
+
   TForm1 = class(TForm)
     Image1: TImage;
     GroupBox2: TGroupBox;
@@ -33,6 +36,7 @@ type
     Label8: TLabel;
     SpinEdit5: TSpinEdit;
     Label9: TLabel;
+    StatusBar2: TStatusBar;
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -47,6 +51,11 @@ var
   Form1: TForm1;
   vec:tVector;
   myFile : TextFile;
+  myFile_overlap : TextFile;
+  myFile_delta_overlap_vs_overlap : TextFile;
+  myFile_delta_overlap_attraction_vs_overlap : TextFile;
+  myFile_delta_overlap_repulsion_vs_overlap : TextFile;
+  myFile_pa_vs_overlap : TextFile;
 
 implementation
 
@@ -59,175 +68,296 @@ begin
    else equ:=0;
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
-Var cnt,nM,r,i,k,sum,max,maxSUM,j,ii,key_size,key_length:integer;
-Var fname:String;
+function DotProduct(A,B:tVector): Double;
+Var s: Double;
+Var i, j: integer;
 begin
-  nM := spinedit5.Value;
-  fname := 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+   s:=0.0;
+   for i:=0 to length(A)-1 do
+   begin
+      s := s+ A[i]*B[i];
+   end;
+   DotProduct:= s;
+end;
 
+
+procedure TForm1.Button3Click(Sender: TObject);
+Var cnt,nM,r,i,k,sum,max,maxSUM,j,ii,i3,key_size,key_length:integer;
+Var fname, fname_delta_overlap_vs_overlap, fname_delta_overlap_attraction_vs_overlap, fname_delta_overlap_repulsion_vs_overlap, fname_pa_vs_overlap :String;
+Var overlap, prev_overlap, delta_overlap: Double;
+Var semip, t1, t2, t3: Double;
+Var attraction_log, repulsion_log: tDoubleVector;
+Var attraction_log_count, repulsion_log_count: tVector;
+Var granularity:integer;
+begin
+  granularity := 10;
+  nM := spinedit5.Value;
+
+{  fname := 'log_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
   AssignFile(myFile, fname);
   Rewrite(myFile);
-  CloseFile(myFile);
+  CloseFile(myFile);}
+
+//  WriteLn(Output, 'Please enter your name');
 
   for r:=1 to spinedit4.Value do
   begin
-  AssignFile(myFile, fname);
-  Append(myFile);
+    image1.Canvas.Brush.Color:=clInfoBK;
+    image1.Canvas.Pen.Color:=clBlue;
+    image1.Canvas.FillRect(image1.ClientRect);
+    image1.Canvas.MoveTo(0,image1.Height-20);
+    image1.Canvas.LineTo(image1.Width,image1.Height-20);
+    image1.Canvas.MoveTo(0,20);
+    image1.Canvas.LineTo(image1.Width,20);
+    with A do
+     begin
+        K:=spinedit1.Value;
+        N:=spinedit2.Value;
+        L:=spinedit3.Value;
+        InitAll;
+        RandomWeight;
+     end;
+     with B do
+     begin
+        K:=spinedit1.Value;
+        N:=spinedit2.Value;
+        L:=spinedit3.Value;
+        InitAll;
+        RandomWeight;
+     end;
+     if nM = 3 then
+         with C do
+         begin
+            K:=spinedit1.Value;
+            N:=spinedit2.Value;
+            L:=spinedit3.Value;
+            InitAll;
+            RandomWeight;
+         end;
+     StringGrid1.RowCount:=a.K;
+     StringGrid1.ColCount:=a.N;
+     stringgrid1.FixedCols:=0;
+     stringgrid1.FixedRows:=0;
 
-  image1.Canvas.Brush.Color:=clInfoBK;
-  image1.Canvas.Pen.Color:=clBlue;
-  image1.Canvas.FillRect(image1.ClientRect);
-  image1.Canvas.MoveTo(0,image1.Height-20);
-  image1.Canvas.LineTo(image1.Width,image1.Height-20);
-  image1.Canvas.MoveTo(0,20);
-  image1.Canvas.LineTo(image1.Width,20);
-  with A do
-   begin
-      K:=spinedit1.Value;
-      N:=spinedit2.Value;
-      L:=spinedit3.Value;
-      InitAll;
-      RandomWeight;
-   end;
-   with B do
-   begin
-      K:=spinedit1.Value;
-      N:=spinedit2.Value;
-      L:=spinedit3.Value;
-      InitAll;
-      RandomWeight;
-   end;
-   if nM = 3 then
-       with C do
-       begin
-          K:=spinedit1.Value;
-          N:=spinedit2.Value;
-          L:=spinedit3.Value;
-          InitAll;
-          RandomWeight;
-       end;
-   StringGrid1.RowCount:=a.K;
-   StringGrid1.ColCount:=a.N;
-   stringgrid1.FixedCols:=0;
-   stringgrid1.FixedRows:=0;
+     StringGrid2.RowCount:=a.K;
+     StringGrid2.ColCount:=a.N;
+     stringgrid2.FixedCols:=0;
+     stringgrid2.FixedRows:=0;
 
-   StringGrid2.RowCount:=a.K;
-   StringGrid2.ColCount:=a.N;
-   stringgrid2.FixedCols:=0;
-   stringgrid2.FixedRows:=0;
+     StringGrid3.RowCount:=a.K;
+     StringGrid3.ColCount:=a.N;
+     stringgrid3.FixedCols:=0;
+     stringgrid3.FixedRows:=0;
 
-   StringGrid3.RowCount:=a.K;
-   StringGrid3.ColCount:=a.N;
-   stringgrid3.FixedCols:=0;
-   stringgrid3.FixedRows:=0;
+     setlength(vec,b.K*b.N);
+     k:=0;
+     prev_overlap:= 0.0;
+     overlap:= 0.0;
+     delta_overlap:= 0.0;
+     if nM = 3 then
+     begin
+        overlap:= abs( (DotProduct(a.W, b.W) / Sqrt(DotProduct(a.W,a.W) * DotProduct(b.W,b.W)))   *  ( (DotProduct(b.W, c.W) / Sqrt(DotProduct(b.W,b.W) * DotProduct(c.W,c.W)))) * ((DotProduct(c.W, a.W) / Sqrt(DotProduct(c.W,c.W) * DotProduct(a.W,a.W)))) );
+        sum:=GetSum3(A,B,C);
+     end
+     else
+     begin
+        overlap:= abs(DotProduct(a.W, b.W) / Sqrt(DotProduct(a.W,a.W) * DotProduct(b.W,b.W)));
+        sum:=GetSum2(A,B);
+     end;
 
-   setlength(vec,b.K*b.N);
-   k:=0;
-   if nM = 3 then
-      sum:=GetSum3(A,B,C)
-   else
-      sum:=GetSum2(A,B);
+     setlength(attraction_log, granularity+1);
+     setlength(repulsion_log, granularity+1);
+     setlength(attraction_log_count, granularity+1);
+     setlength(repulsion_log_count, granularity+1);
 
-   max:=sqr(a.L*a.l)*a.N*a.K;
-   maxSUM:=a.K*a.N*a.L div 4;
-   for i:=1 to max do
-   begin
-      if nM = 3 then
-        begin
-          inp.FormRandomVector(b.K,b.N);
-          A.CountResult(inp.X);
-          b.CountResult(inp.X);
-          C.CountResult(inp.X);
-          if (a.TPOutput=b.TPOutput)AND(b.TPOutput=c.TPOutput) then
+     for cnt:=0 to granularity do
+     begin
+       attraction_log[cnt] := 0;
+       repulsion_log[cnt] := 0;
+       attraction_log_count[cnt] := 0;
+       repulsion_log_count[cnt] := 0;
+     end;
+
+     max:=sqr(a.L*a.l)*a.N*a.K;
+     maxSUM:=a.K*a.N*a.L div 4;
+     for i:=1 to max do
+     begin
+        if nM = 3 then
           begin
-             a.UpdateWeight(inp.X);
-             b.UpdateWeight(inp.X);
-             c.UpdateWeight(inp.X);
+            inp.FormRandomVector(b.K,b.N);
+            A.CountResult(inp.X);
+            b.CountResult(inp.X);
+            C.CountResult(inp.X);
+            if (a.TPOutput=b.TPOutput)AND(b.TPOutput=c.TPOutput) then
+            begin
+               a.wold := a.w;
+               b.wold := b.w;
+               c.wold := c.w;
 
-             a.wold := a.w;
-             b.wold := b.w;
-             c.wold := c.w;
-             for cnt:=0 to K-1 do
-             begin
-              if equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt]) = 1 then begin
-                {attractive step}
-              end
-              else begin
-                 {repulsive step}
-              end;
-             end;
+               a.UpdateWeight(inp.X);
+               b.UpdateWeight(inp.X);
+               c.UpdateWeight(inp.X);
 
-             image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-             sum:=GetSum3(A,B,C);
-             image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-             for ii:=0 to a.K-1 do
-             for j:=0 to a.N-1 do
-             begin
-                stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
-                stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
-                stringgrid3.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
-             end;
-             stringgrid1.Repaint;
-             stringgrid2.Repaint;
-             stringgrid3.Repaint;
-             image1.Repaint;
-             inc(k);
-             if sum=0 then break;
-          end;
-        end
-      else
-        begin
-          inp.FormRandomVector(b.K,b.N);
-          A.CountResult(inp.X);
-          b.CountResult(inp.X);
-          if (a.TPOutput=b.TPOutput) then
+               prev_overlap:= overlap;
+               overlap:= abs( (DotProduct(a.W, b.W) / Sqrt(DotProduct(a.W,a.W) * DotProduct(b.W,b.W)))   *  ( (DotProduct(b.W, c.W) / Sqrt(DotProduct(b.W,b.W) * DotProduct(c.W,c.W)))) * ((DotProduct(c.W, a.W) / Sqrt(DotProduct(c.W,c.W) * DotProduct(a.W,a.W)))) );
+               delta_overlap:= overlap - prev_overlap;
+
+               for cnt:=0 to K-1 do
+               begin
+                  if equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt])*equ(a.TPOutput,a.h[cnt]) = 1 then begin
+                    {attractive step}
+                    attraction_log[round(overlap*granularity)] := attraction_log[round(overlap*granularity-1)] + delta_overlap;
+                    attraction_log_count[round(overlap*granularity)] := attraction_log_count[round(overlap*granularity-1)] + 1;
+                  end
+                  else begin
+                    {repulsive step}
+                    repulsion_log[round(overlap*granularity)] := repulsion_log[round(overlap*granularity-1)] + delta_overlap;
+                    repulsion_log_count[round(overlap*granularity)] := repulsion_log_count[round(overlap*granularity-1)] + 1;
+                  end;
+               end;
+
+  {            image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+               sum:=GetSum3(A,B,C);
+               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+  }
+
+//               image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((prev_overlap/1.1)*(image1.Height-20)/1.0));
+//               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((overlap/1.1)*(image1.Height-20)/1.0));
+
+
+               for ii:=0 to a.K-1 do
+               for j:=0 to a.N-1 do
+               begin
+                  stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
+                  stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+                  stringgrid3.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+               end;
+
+               stringgrid1.Repaint;
+               stringgrid2.Repaint;
+               stringgrid3.Repaint;
+//               image1.Repaint;
+
+               StatusBar2.SimpleText:='Current round stats >>  Iterations: '+inttostr(i)+'  |  overlap : ' + FormatFloat('0.0000', overlap);
+
+               inc(k);
+               {if sum=0 then break;}
+               if overlap>0.9999999 then break;
+            end;
+          end
+        else
           begin
-             a.UpdateWeight(inp.X);
-             b.UpdateWeight(inp.X);
-             image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-             sum:=GetSum2(A,B);
-             image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
-             for ii:=0 to a.K-1 do
-             for j:=0 to a.N-1 do
-             begin
-                stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
-                stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
-             end;
-             stringgrid1.Repaint;
-             stringgrid2.Repaint;
-             image1.Repaint;
-             inc(k);
-             if sum=0 then break;
-          end;
+            inp.FormRandomVector(b.K,b.N);
+            A.CountResult(inp.X);
+            b.CountResult(inp.X);
+            if (a.TPOutput=b.TPOutput) then
+            begin
+               a.UpdateWeight(inp.X);
+               b.UpdateWeight(inp.X);
+               image1.Canvas.MoveTo((i-1)*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+               sum:=GetSum2(A,B);
+               image1.Canvas.Lineto(i*image1.Width div max,image1.Height-20-round((sum/5)*(image1.Height-20)/maxSUM));
+               for ii:=0 to a.K-1 do
+               for j:=0 to a.N-1 do
+               begin
+                  stringgrid1.Cells[j,ii]:=inttostr(a.w[ii*a.N+j]);
+                  stringgrid2.Cells[j,ii]:=inttostr(b.w[ii*a.N+j]);
+               end;
+               stringgrid1.Repaint;
+               stringgrid2.Repaint;
+               image1.Repaint;
+               inc(k);
+               if sum=0 then break;
+            end;
         end;
-   end;
-   if sum=0 then begin
-      StatusBar1.SimpleText:='SUCCESS. '+'round:'+inttostr(r);
-      WriteLn (myFile, 'SUCCESS'+' Iterations: '+inttostr(i));
-   end
-   else
-   begin
-      StatusBar1.SimpleText:='FAILED. '+'round:'+inttostr(r);
-      WriteLn (myFile, 'FAILED'+' Iterations: '+inttostr(i));
-   end;
-   StatusBar1.SimpleText:=StatusBar1.SimpleText+'. Iterations: '+inttostr(i)+'.';
-   StatusBar1.SimpleText:=StatusBar1.SimpleText+' Data exchanged: '+inttostr(i*(a.K*a.N+4) div 1024)+'Kb.';
+     end;
 
-   //makeing key
-   edit1.Text:='';
-   key_size:=length(ABC) div (a.l*2+1);
-   key_length:=a.K*a.n div key_size;
-   for i:=1 to key_length do
-   begin
-      k:=1;
-      for j:=(i-1)*key_size to i*key_size-1 do
-         k:=k+a.w[j]+a.l;
-      edit1.Text:=edit1.Text+ABC[k];
-   end;
 
-   CloseFile(myFile);
+//     AssignFile(myFile, fname);
+//     Append(myFile);
+     {   if sum=0 then begin}
+     if overlap>0.999999 then begin
+        StatusBar1.SimpleText:='SUCCESS. '+'round:'+inttostr(r);
+//        WriteLn (myFile, 'SUCCESS'+' Iterations: '+inttostr(i));
+
+{        if r=0 then
+        else if r=1 then
+        else if r=2 then
+        else if r=3 then
+        else if r=4 then
+        else if r=5 then
+        else if r=6 then
+        else begin
+        end;
+}
+     end
+     else
+     begin
+        StatusBar1.SimpleText:='FAILED. '+'round:'+inttostr(r);
+//        WriteLn (myFile, 'FAILED'+' Iterations: '+inttostr(i));
+     end;
+//     CloseFile(myFile);
+
+
+     StatusBar1.SimpleText:=StatusBar1.SimpleText+'. Iterations: '+inttostr(i)+'.';
+     StatusBar1.SimpleText:=StatusBar1.SimpleText+' Data exchanged: '+inttostr(i*(a.K*a.N+4) div 1024)+'Kb.';
+
+     //makeing key
+     edit1.Text:='';
+     key_size:=length(ABC) div (a.l*2+1);
+     key_length:=a.K*a.n div key_size;
+     for i:=1 to key_length do
+     begin
+        k:=1;
+        for j:=(i-1)*key_size to i*key_size-1 do
+           k:=k+a.w[j]+a.l;
+        edit1.Text:=edit1.Text+ABC[k];
+     end;
+
   end;
+
+  fname_delta_overlap_vs_overlap := 'log_delta_overlap_vs_overlap_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+  AssignFile(myFile_delta_overlap_vs_overlap, fname_delta_overlap_vs_overlap);
+  Rewrite(myFile_delta_overlap_vs_overlap);
+
+  fname_delta_overlap_attraction_vs_overlap := 'log_delta_overlap_attraction_vs_overlap_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+  AssignFile(myFile_delta_overlap_attraction_vs_overlap, fname_delta_overlap_attraction_vs_overlap);
+  Rewrite(myFile_delta_overlap_attraction_vs_overlap);
+
+  fname_delta_overlap_repulsion_vs_overlap := 'log_delta_overlap_repulsion_vs_overlap_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+  AssignFile(myFile_delta_overlap_repulsion_vs_overlap, fname_delta_overlap_repulsion_vs_overlap);
+  Rewrite(myFile_delta_overlap_repulsion_vs_overlap);
+
+  fname_pa_vs_overlap := 'log_pa_vs_overlap_K='+inttostr(spinedit1.Value)+'_L='+inttostr(spinedit3.Value)+'_N='+inttostr(spinedit2.Value)+'_m='+inttostr(spinedit5.Value)+'_r='+inttostr(spinedit4.Value)+'.txt';
+  AssignFile(myFile_pa_vs_overlap, fname_pa_vs_overlap);
+  Rewrite(myFile_pa_vs_overlap);
+
+
+  for i3 := 0 to granularity do begin
+    if (attraction_log_count[i3]+repulsion_log_count[i3]) = 0 then
+      WriteLn (myFile_delta_overlap_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0 ) )
+    else
+      WriteLn (myFile_delta_overlap_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', (attraction_log[i3]+repulsion_log[i3]) / (attraction_log_count[i3]+repulsion_log_count[i3]) ) );
+
+    if attraction_log_count[i3] = 0 then
+      WriteLn (myFile_delta_overlap_attraction_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0) )
+    else
+      WriteLn (myFile_delta_overlap_attraction_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', attraction_log[i3] / attraction_log_count[i3]  ) );
+
+    if repulsion_log_count[i3] = 0 then
+      WriteLn (myFile_delta_overlap_repulsion_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0) )
+    else
+      WriteLn (myFile_delta_overlap_repulsion_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', repulsion_log[i3] / repulsion_log_count[i3]) );
+
+    if (attraction_log_count[i3]+repulsion_log_count[i3]) = 0 then
+      WriteLn (myFile_pa_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', -1.0  ) )
+    else
+      WriteLn (myFile_pa_vs_overlap, FormatFloat('0.0000', overlap) +'  '+ FormatFloat('0.0000', attraction_log_count[i3] / (attraction_log_count[i3]+repulsion_log_count[i3])  ) );
+  end;
+  CloseFile(myFile_delta_overlap_vs_overlap);
+  CloseFile(myFile_delta_overlap_attraction_vs_overlap);
+  CloseFile(myFile_delta_overlap_repulsion_vs_overlap);
+  CloseFile(myFile_pa_vs_overlap);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

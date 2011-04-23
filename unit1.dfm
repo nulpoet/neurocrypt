@@ -26,7 +26,7 @@ object Form1: TForm1
   end
   object Label4: TLabel
     Left = 17
-    Top = 529
+    Top = 497
     Width = 57
     Height = 13
     Caption = 'Shared key:'
@@ -75,7 +75,7 @@ object Form1: TForm1
   end
   object GroupBox2: TGroupBox
     Left = 17
-    Top = 10
+    Top = 8
     Width = 249
     Height = 145
     Caption = 'Neural Machine Parameters'
@@ -110,7 +110,7 @@ object Form1: TForm1
     end
     object Label9: TLabel
       Left = 19
-      Top = 129
+      Top = 124
       Width = 78
       Height = 13
       Caption = 'No. of Machines'
@@ -220,7 +220,7 @@ object Form1: TForm1
   end
   object Edit1: TEdit
     Left = 80
-    Top = 526
+    Top = 494
     Width = 593
     Height = 21
     ReadOnly = True
@@ -274,5 +274,14 @@ object Form1: TForm1
     ParentCtl3D = False
     TabOrder = 8
     Value = 3
+  end
+  object StatusBar2: TStatusBar
+    Left = 0
+    Top = 534
+    Width = 709
+    Height = 19
+    Panels = <>
+    SimplePanel = True
+    SimpleText = 'Current round stats'
   end
 end
