@@ -50,8 +50,6 @@
 \begin_body
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status collapsed
 
@@ -79,8 +77,6 @@ Style is ornate.
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status open
 
@@ -107,27 +103,19 @@ In principle, this file can be redistributed and/or modified under the terms
 \end_layout
 
 \begin_layout Title
-
-\family roman
 Analysis of Secure Key Exchange Protocol using Synchronisation of Tree Parity
  Machines for Multiple Agents
 \end_layout
 
 \begin_layout Subtitle
-
-\family roman
 [Neural Cryptography]
 \end_layout
 
 \begin_layout Author
-
-\family roman
 Rohit Hiwale 
 \end_layout
 
 \begin_layout Institute
-
-\family roman
 \begin_inset Flex InstituteMark
 status collapsed
 
@@ -151,8 +139,6 @@ IIT Kharagpur
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status collapsed
 
@@ -168,8 +154,6 @@ If you have a file called "institution-logo-filename.xxx", where xxx is a
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -199,8 +183,6 @@ pgfuseimage{institution-logo}}
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status collapsed
 
@@ -216,8 +198,6 @@ The following causes the table of contents to be shown at the beginning
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -285,8 +265,6 @@ tableofcontents[currentsection,currentsubsection]
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status collapsed
 
@@ -301,8 +279,6 @@ If you wish to uncover everything in a step-wise fashion, uncomment the
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -319,14 +295,10 @@ beamerdefaultoverlayspecification{<+->}
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 Outline
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
 
@@ -336,8 +308,6 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status open
 
@@ -387,22 +357,22 @@ If you omit details that are vital to the proof/implementation, just say
 \end_layout
 
 \begin_layout Section
+
+\family sans
 Introduction to Neural Synchronization
 \end_layout
 
 \begin_layout Subsection
+
+\family sans
 Tree Parity Machines
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 Structure
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Graphics
 	filename res/350px-TreeParityMachine.jpg
 	height 3cm
@@ -413,8 +383,6 @@ Structure
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -433,8 +401,6 @@ status open
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -453,8 +419,6 @@ status open
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -473,8 +437,6 @@ status open
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -493,72 +455,50 @@ status open
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 Synchronization 
 \end_layout
 
 \begin_layout Enumerate
-
-\family roman
 Initialize random weight values 
 \end_layout
 
 \begin_layout Enumerate
-
-\family roman
 Execute these steps until the full synchronization is achieved 
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
-
-\family roman
 Generate random input vector X 
 \end_layout
 
 \begin_layout Enumerate
-
-\family roman
 Compute the values of the hidden neurons 
 \end_layout
 
 \begin_layout Enumerate
-
-\family roman
 Compute the value of the output neuron 
 \end_layout
 
 \begin_layout Enumerate
-
-\family roman
 Compare the values of both tree parity machines 
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
-
-\family roman
 Outputs are others: go to 2.1 
 \end_layout
 
 \begin_layout Enumerate
-
-\family roman
 Outputs are same: learning rules is applied to the weights
 \end_layout
 
 \end_deeper
 \end_deeper
 \begin_layout BeginFrame
-
-\family roman
 Learning Rule
 \end_layout
 
 \begin_layout Block
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -595,8 +535,6 @@ status open
 \end_layout
 
 \begin_layout Block
-
-\family roman
 \begin_inset Formula $w_{ij}=g(w_{ij}+x_{ij}\Theta(σ_{i}τ)\Theta(τ_{A}τ_{B}))$
 \end_inset
 
@@ -604,8 +542,6 @@ status open
 \end_layout
 
 \begin_layout Block
-
-\family roman
 \begin_inset Formula $\Theta(x)=\begin{cases}
 1 & if(x\geq0)\\
 0 & else\end{cases}$
@@ -615,8 +551,6 @@ status open
 \end_layout
 
 \begin_layout Block
-
-\family roman
 \begin_inset Formula $g(w)=\begin{cases}
 sgn(w)L & if(w>L)\\
 w & else\end{cases}$
@@ -625,15 +559,7 @@ w & else\end{cases}$
 
 \end_layout
 
-\begin_layout BeginFrame
-
-\family roman
-Correctness
-\end_layout
-
 \begin_layout ExampleBlock
-
-\family roman
 \begin_inset ERT
 status open
 
@@ -671,49 +597,46 @@ status collapsed
 
 \begin_deeper
 \begin_layout Itemize
-
-\family roman
 L bounds movement of weights and weights try to move in same direction
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 Analogous to Synchronization of random walks with reflecting boundaries
  
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 Details in Dynamics of the synchronization process.
 \end_layout
 
 \end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout Section
+
+\family sans
 Our Results/Contribution
 \end_layout
 
 \begin_layout Subsection
+
+\family sans
 Main Results
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 Make Titles Informative.
  
 \end_layout
 
 \begin_layout Theorem
-
-\family roman
 On first slide.
 \end_layout
 
 \begin_layout Theorem
 
-\family roman
 \emph on
 \begin_inset Formula \[
 \sum_{i=0}^{K}\left(_{2i}^{K}\right)\left(1-\epsilon\right)^{K-2i}\epsilon^{2i}\]
@@ -723,9 +646,8 @@ On first slide.
 
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Description
 
-\family roman
 \emph on
 \begin_inset Formula \[
 \sum_{i=0}^{K}\left(_{2i}^{K}\right)\left(1-\epsilon\right)^{K-2i}\epsilon^{2i}\]
@@ -740,14 +662,10 @@ On first slide.
 \end_layout
 
 \begin_layout Corollary
-
-\family roman
 On second slide.
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 Make Titles Informative.
  
 \end_layout
@@ -758,14 +676,10 @@ Make Titles Informative.
 
 \begin_deeper
 \begin_layout Column
-
-\family roman
 5cm
 \end_layout
 
 \begin_layout Theorem
-
-\family roman
 \begin_inset ERT
 status collapsed
 
@@ -780,14 +694,10 @@ In left column.
 \end_layout
 
 \begin_layout Column
-
-\family roman
 5cm
 \end_layout
 
 \begin_layout Corollary
-
-\family roman
 \begin_inset ERT
 status collapsed
 
@@ -806,23 +716,27 @@ New line
 \end_layout
 
 \end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout Subsection
+
+\family sans
 Basic Ideas for Proofs/Implementations
 \end_layout
 
 \begin_layout Section*
+
+\family sans
 Summary
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 Summary
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 The 
 \color red
 first main message
@@ -831,8 +745,6 @@ first main message
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 The 
 \color red
 second main message
@@ -841,8 +753,6 @@ second main message
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 Perhaps a 
 \color red
 third message
@@ -851,8 +761,6 @@ third message
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset Note Note
 status open
 
@@ -866,8 +774,6 @@ An outlook is always optional.
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset ERT
 status collapsed
 
@@ -884,21 +790,15 @@ vskip0pt plus.5fill
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 Outlook
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-
-\family roman
 What we have not done yet.
 \end_layout
 
 \begin_layout Itemize
-
-\family roman
 Even more stuff.
 \end_layout
 
@@ -909,6 +809,8 @@ Even more stuff.
 
 \begin_layout Section*
 \start_of_appendix
+
+\family sans
 \begin_inset Note Note
 status open
 
@@ -922,12 +824,12 @@ Appendix
 \end_layout
 
 \begin_layout Subsection*
+
+\family sans
 For Further Reading
 \end_layout
 
 \begin_layout BeginFrame
-
-\family roman
 \begin_inset ERT
 status collapsed
 
@@ -942,8 +844,6 @@ For Further Reading
 \end_layout
 
 \begin_layout Standard
-
-\family roman
 \begin_inset ERT
 status collapsed
 
@@ -970,8 +870,6 @@ Start with overview books.
 \end_layout
 
 \begin_layout Bibliography
-
-\family roman
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "Author1990"
@@ -1039,8 +937,6 @@ Followed by interesting articles.
 \end_layout
 
 \begin_layout Bibliography
-
-\family roman
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
 key "Someone2002"

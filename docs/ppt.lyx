@@ -357,11 +357,7 @@ If you omit details that are vital to the proof/implementation, just say
 \end_layout
 
 \begin_layout Section
-Introduction to Neural Synchronization
-\end_layout
-
-\begin_layout Subsection
-Tree Parity Machines
+Introduction
 \end_layout
 
 \begin_layout BeginFrame
@@ -606,11 +602,19 @@ Details in Dynamics of the synchronization process.
 \end_layout
 
 \end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout Section
+
+\family sans
 Our Results/Contribution
 \end_layout
 
 \begin_layout Subsection
+
+\family sans
 Main Results
 \end_layout
 
@@ -634,7 +638,7 @@ On first slide.
 
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Description
 
 \emph on
 \begin_inset Formula \[
@@ -704,11 +708,19 @@ New line
 \end_layout
 
 \end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
 \begin_layout Subsection
+
+\family sans
 Basic Ideas for Proofs/Implementations
 \end_layout
 
 \begin_layout Section*
+
+\family sans
 Summary
 \end_layout
 
@@ -717,32 +729,26 @@ Summary
 \end_layout
 
 \begin_layout Itemize
-The
-\color none
- 
+The 
 \color red
 first main message
-\color none
+\color inherit
  of your talk in one or two lines.
 \end_layout
 
 \begin_layout Itemize
-The
-\color none
- 
+The 
 \color red
 second main message
-\color none
+\color inherit
  of your talk in one or two lines.
 \end_layout
 
 \begin_layout Itemize
-Perhaps a
-\color none
- 
+Perhaps a 
 \color red
 third message
-\color none
+\color inherit
 , but not more than that.
 \end_layout
 
@@ -795,6 +801,8 @@ Even more stuff.
 
 \begin_layout Section*
 \start_of_appendix
+
+\family sans
 \begin_inset Note Note
 status open
 
@@ -808,6 +816,8 @@ Appendix
 \end_layout
 
 \begin_layout Subsection*
+
+\family sans
 For Further Reading
 \end_layout
 

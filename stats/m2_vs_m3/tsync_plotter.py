@@ -80,6 +80,8 @@ ylo = 0
 yhi = max(n_m3) * 1.1
 axis([xlo, xhi, ylo, yhi])
 
+xlabel('time for synchronization (tsync)')
+ylabel('frequency')
 title('Tsync for 3 Neural Machines vs 2 Neural Machines')
 grid(True)
 savefig('tsync_histogram_m2_vs_m3')
