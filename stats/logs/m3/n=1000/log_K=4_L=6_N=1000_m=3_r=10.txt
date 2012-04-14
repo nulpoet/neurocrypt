@@ -1,0 +1,10 @@
+SUCCESS Iterations: 1986
+SUCCESS Iterations: 2411
+SUCCESS Iterations: 2262
+SUCCESS Iterations: 3225
+SUCCESS Iterations: 2849
+SUCCESS Iterations: 2140
+SUCCESS Iterations: 3870
+SUCCESS Iterations: 1662
+SUCCESS Iterations: 2645
+SUCCESS Iterations: 2023

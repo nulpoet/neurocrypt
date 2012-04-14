@@ -1,0 +1,13 @@
+
+
+[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10 ]
+
+
+K=3 
+[None 51.82 171.0 370.01 659.95 1034.06 1471.96 None None None None]
+
+K=4 
+[None 67.2 211.2 845.2 1621.2 3572.2 9660.0 None None None None]
+
+K=5 
+[None 61.4 389.0 1604.02 12009.76 None None None None None None]

@@ -1,11 +1,17 @@
 import numpy
 import pylab
+import os
+import fnmatch
 
-N = 1000
-m = 2
+def get_avg(fname_pre):
 
-def get_avg(fname):
+	fname = ""
+	for file in os.listdir('.'):
+		if fnmatch.fnmatch(file, fname_pre+'*.txt'):
+			fname = file
+
 	f = open(fname)
+
 	sum = 0;
 	n = 0;
 	for l in f.readlines():
@@ -15,56 +21,59 @@ def get_avg(fname):
 	return avg
 
 
-Lrange = numpy.arange(0.0, 8.0+1.0, 1.0)
+L = numpy.arange(0.0, 10.0+1.0, 1.0)
 
 
-K = 3
+# K = 3
 k3 = []
-for L in Lrange:
+for i in L:
 	try:
-		k3.append(get_avg('log_K={0}_L={1}_N={2}_m={3}.txt'.format (K,L,N,m) ));
+		k3.append(get_avg('log_K=3_L='+str(int(i))+'_N=1000_m=2'));
 	except IOError:
- 		k3.append(None)
+#		print 'NOT FOUND :: ' + 'log_K=3_L='+str(int(i))+'_N=11_m=3.txt'
+		k3.append(None)
 k3array = numpy.array(k3)
 
 
-K = 4
+# K = 4
 k4 = []
-for L in Lrange:
+for i in L:
 	try:
-		k4.append(get_avg('log_K={0}_L={1}_N={2}_m={3}.txt'.format (K,L,N,m) ));
+		k4.append(get_avg('log_K=4_L='+str(int(i))+'_N=1000_m=2'));
 	except IOError:
- 		k4.append(None)
+#		print 'NOT FOUND :: ' + 'log_K=4_L='+str(int(i))+'_N=11_m=3.txt'
+		k4.append(None)
 k4array = numpy.array(k4)
 
 
-K = 5
+# K = 5
 k5 = []
-for L in Lrange:
+cnt = -1
+for i in L:
 	try:
-		k5.append(get_avg('log_K={0}_L={1}_N={2}_m={3}.txt'.format (K,L,N,m) ));
+		cnt += 1
+		if cnt > 4:
+			raise IOError
+		k5.append(get_avg('log_K=5_L='+str(int(i))+'_N=1000_m=2'))
 	except IOError:
- 		k5.append(None)
+#		print 'NOT FOUND :: ' + 'log_K=4_L='+str(int(i))+'_N=11_m=3.txt'
+		k5.append(None)
 k5array = numpy.array(k5)
 
 
-K = 6
-k6 = []
-for L in Lrange:
-	try:
-		k6.append(get_avg('log_K={0}_L={1}_N={2}_m={3}.txt'.format (K,L,N,m) ));
-	except IOError:
- 		k6.append(None)
-k6array = numpy.array(k6)
+pylab.plot( L, k3array, 'ro--',L, k4array, 'bo--', k5array, 'ko--')
 
+f = open('tsync_vs_L.txt','w')
+f.write("\n\n[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10 ]\n")
+f.write("\n\nK=3 \n" +str(k3array))
+f.write("\n\nK=4 \n" +str(k4array))
+f.write("\n\nK=5 \n" +str(k5array))
+f.close()
 
-
-pylab.plot( L, k3array, 'ro--',L, k4array, 'bo--', L, k5array, 'go--', L, k6array, 'ko--')
-
-pylab.xlabel("L", bbox=dict(facecolor='red', alpha=0.5))
+pylab.xlabel("L")
 pylab.ylabel('avg tsync')
-pylab.title('tsync vs L for m=3, N=11 [tync averaged over atleast 50 runs]')
+pylab.title('tsync vs L for m=2, N=1000')
 pylab.grid(True)
-pylab.savefig('Tsync_vs_L_plot[N=11,m=3]')
+pylab.savefig('Tsync[cropped]_vs_L_plot[N=1000,m=2]')
 
 pylab.show()
